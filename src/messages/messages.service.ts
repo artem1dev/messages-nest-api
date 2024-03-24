@@ -1,16 +1,23 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { MessagesRepository } from "./messages.repository";
+import { ListMessages } from "./dtos/list.messages";
+import { PaginateOptions, paginate } from "./../pagination/paginator";
 
 @Injectable()
 export class MessagesService {
     constructor(public messagesRepo: MessagesRepository) {}
 
-    findOne(id: string) {
-        return this.messagesRepo.findOne(id);
+    async findOne(id: string) {
+        const message = await this.messagesRepo.findOne(id);
+        if (!message) {
+            throw new NotFoundException("message npt found");
+        }
+        return message;
     }
 
-    findAll() {
-        return this.messagesRepo.findAll();
+    async findAll(filter: ListMessages,
+        paginateOptions: PaginateOptions) {
+        return await paginate(await this.messagesRepo.findAll(filter), paginateOptions);
     }
 
     create(content: string) {

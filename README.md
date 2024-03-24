@@ -2,7 +2,7 @@
 
 This app is really simple. It just use local storage for storing simple messages. It can serve as a solid foundation for more complex projects.
 
-# Instaling
+# Installing
 
 ## Prerequisites
 
@@ -15,6 +15,16 @@ To get started with the project, install all dependencies:
    ```bash
    npm install
    ```
+## Environment Configuration
+
+The repository includes an `example.env` file. You should create the following environment files:
+
+- `.env`: Default environment for new scripts
+
+You can use the `example.env` file as a template.
+
+DB_JSON_NAME - String: Name of database to use
+PORT - Integer: Number of port for server startup 
 
 ## Running the Application
 
